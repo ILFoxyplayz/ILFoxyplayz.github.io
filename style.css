@@ -268,7 +268,8 @@ footer {
     text-align: center;
 }
 
-.startUI, .gameUI {
+.startUI,
+.gameUI {
     transition: all 0.3s;
 }
 
@@ -281,9 +282,9 @@ footer {
     padding: 30px;
     position: absolute;
     top: 0;
-    left: 0; 
+    left: 0;
     z-index: -1;
-    min-width: 100%; 
+    min-width: 100%;
     min-height: 100%;
     opacity: 0;
 }
@@ -299,16 +300,20 @@ footer {
 
 /* ===== INDIVIDUAL STUFF ===== */
 
-#card-1, #card-2, #card-3 {
+#card-1,
+#card-2,
+#card-3 {
     flex: 30%;
 }
 
-#slider-2 img, #slider-3 img {
+#slider-2 img,
+#slider-3 img {
     min-width: 100px;
     flex: 1;
 }
 
-#slider-2 p, #slider-3 p {
+#slider-2 p,
+#slider-3 p {
     flex: 4
 }
 
@@ -352,7 +357,7 @@ footer {
     }
 
     /*hide the menu item list*/
-    nav div {
+    #qrCodeImg {
         display: none;
     }
 }

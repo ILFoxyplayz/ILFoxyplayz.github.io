@@ -250,7 +250,7 @@ function endGuessingGame() {
     let scoreMessage = document.querySelector("#guessing-game-message");
     if (usedQuestionIndex.length > 0) {
         // display the score
-        scoreMessage.innerHTML = "Your score is: " + game_1_score;
+        scoreMessage.innerHTML = `Your score is: ${game_1_score}/5`;
     }
     else {
         // display regular message
