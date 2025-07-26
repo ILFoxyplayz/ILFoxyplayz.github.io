@@ -1,17 +1,4 @@
 // === target all elements to save to constants ===
-// navigation buttons
-const page1btn = document.querySelector("#page1btn");
-const page2btn = document.querySelector("#page2btn");
-const page3btn = document.querySelector("#page3btn");
-const page4btn = document.querySelector("#page4btn");
-const page5btn = document.querySelector("#page5btn");
-
-// menu buttons
-const m_page1btn = document.querySelector("#menu_page1btn");
-const m_page2btn = document.querySelector("#menu_page2btn");
-const m_page3btn = document.querySelector("#menu_page3btn");
-const m_page4btn = document.querySelector("#menu_page4btn");
-const m_page5btn = document.querySelector("#menu_page5btn");
 
 // page contents
 const pageContent_1 = document.querySelector("#subtopic1-content");
@@ -27,10 +14,8 @@ const card_3 = document.querySelector("#card-3");
 
 // guessing game
 const game_1 = document.querySelector("#guessing-game");
-const game_1_StartButton = document.querySelector("#guessing-game-startButton");
 const game_1_StartMenu = document.querySelector("#guessing-game .startUI");
 const game_1_GameMenu = document.querySelector("#guessing-game .gameUI");
-const game_1_CheckButton = document.querySelector("#guessing-game-checkButton");
 
 // guessing game audio
 const correctAudio = new Audio("audio/correct.mp3");
@@ -111,6 +96,7 @@ var questions = [
 // structure
 const header = document.querySelector("#header");
 const footer = document.querySelector("#footer");
+const menu = document.querySelector("#menu");
 var allpages = document.querySelectorAll(".page");
 var allpageContent = document.querySelectorAll(".page-content")
 var allcards = document.querySelectorAll(".card");
@@ -317,36 +303,68 @@ Init();
 // ===== EVENT LISTENERS ===== 
 hamBtn.addEventListener("click", toggleMenus);
 addEventListener("scroll", toggleHeader);
-page1btn.addEventListener("click", function () {
-    show(1);
+
+// delegate page nav to header
+header.addEventListener("click", function (e) {
+    let id = e.target.id;
+
+    switch (id) {
+        case "page1btn":
+            show(1);
+            break;
+        case "page2btn":
+            show(2);
+            break;
+        case "page3btn":
+            show(3);
+            break;
+        case "page4btn":
+            show(4);
+            break;
+        case "page5btn":
+            show(5);
+            break;
+    }
 });
-page2btn.addEventListener("click", function () {
-    show(2);
+
+// delegate menu btns to menu
+menu.addEventListener("click", function (e) {
+    let id = e.target.id;
+
+    switch (id) {
+        case "menu_page1btn":
+            show(1);
+            break;
+        case "menu_page2btn":
+            show(2);
+            break;
+        case "menu_page3btn":
+            show(3);
+            break;
+        case "menu_page4btn":
+            show(4);
+            break;
+        case "menu_page5btn":
+            show(5);
+            break;
+    }
+})
+
+// delegate quiz btns to guessing game section
+game_1.addEventListener("click", function (e) {
+    let button = e.target.id;
+
+    switch (button) {
+        case "guessing-game-startButton":
+            startGuessingGame();
+            break;
+
+        case "guessing-game-checkButton":
+            checkAnswer();
+            break;
+    }
 });
-page3btn.addEventListener("click", function () {
-    show(3);
-});
-page4btn.addEventListener("click", function () {
-    show(4);
-});
-page5btn.addEventListener("click", function () {
-    show(5);
-});
-m_page1btn.addEventListener("click", function () {
-    show(1);
-});
-m_page2btn.addEventListener("click", function () {
-    show(2);
-});
-m_page3btn.addEventListener("click", function () {
-    show(3);
-});
-m_page4btn.addEventListener("click", function () {
-    show(4);
-});
-m_page5btn.addEventListener("click", function () {
-    show(5);
-});
+
 card_1.addEventListener("click", function () {
     showCard(1);
 });
@@ -355,10 +373,4 @@ card_2.addEventListener("click", function () {
 });
 card_3.addEventListener("click", function () {
     showCard(3);
-});
-game_1_StartButton.addEventListener("click", function () {
-    startGuessingGame();
-});
-game_1_CheckButton.addEventListener("click", function () {
-    checkAnswer()
 });
