@@ -24,6 +24,12 @@ const game_1_StartButton = document.querySelector("#guessing-game-startButton");
 const game_1_StartMenu = document.querySelector("#guessing-game .startUI");
 const game_1_GameMenu = document.querySelector("#guessing-game .gameUI");
 const game_1_CheckButton = document.querySelector("#guessing-game-checkButton");
+
+// guessing game audio
+const correctAudio = new Audio("audio/correct.mp3");
+const wrongAudio = new Audio("audio/error.mp3");
+
+// guessing game logic variables
 let currentQuestionIndex = -1;
 let usedQuestionIndex = [];
 let maxQuestions = 5;
@@ -233,7 +239,13 @@ function randomiseQuestion() {
 function checkAnswer() {
 
     let value = document.querySelector("input[name='mcq']:checked").value;
-    if (value == questions[currentQuestionIndex].answer) game_1_score++;
+    if (value == questions[currentQuestionIndex].answer) {
+        game_1_score++;
+        correctAudio.play();
+    }
+    else {
+        wrongAudio.play();
+    }
 
     // Set new question
     setUpQuestion();
