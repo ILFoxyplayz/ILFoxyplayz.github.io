@@ -13,6 +13,13 @@ const m_page3btn = document.querySelector("#menu_page3btn");
 const m_page4btn = document.querySelector("#menu_page4btn");
 const m_page5btn = document.querySelector("#menu_page5btn");
 
+// page contents
+const pageContent_1 = document.querySelector("#subtopic1-content");
+const pageContent_2 = document.querySelector("#subtopic2-content");
+const pageContent_3 = document.querySelector("#subtopic3-content");
+const pageContent_4 = document.querySelector("#subtopic4-content");
+const pageContent_5 = document.querySelector("#subtopic5-content");
+
 // cards 
 const card_1 = document.querySelector("#card-1");
 const card_2 = document.querySelector("#card-2");
@@ -105,6 +112,7 @@ var questions = [
 const header = document.querySelector("#header");
 const footer = document.querySelector("#footer");
 var allpages = document.querySelectorAll(".page");
+var allpageContent = document.querySelectorAll(".page-content")
 var allcards = document.querySelectorAll(".card");
 var allgames = document.querySelectorAll(".game");
 
@@ -123,15 +131,25 @@ function hideall() {
     for (let onegame of allgames) { //go through all games
         onegame.style.display = "none";
     }
+    for (let onepageContent of allpageContent) {
+        onepageContent.classList.remove("pageSlideIn");
+    }
     footer.style.display = "none"; //remove footer
+
 }
 
+let currentNo = 0;
 // Function to show selected page no
 function show(pgno) {
+
+    // if the page is the same, don't do anything
+    if (pgno == currentNo) return;
+    currentNo = pgno;
     hideall();
 
     let onepage = document.querySelector("#subtopic" + pgno);
     onepage.style.display = "block"; //show the page
+    slideContent(pgno);
 
     footer.style.display = "block"; //show the footer
 
@@ -142,6 +160,17 @@ function show(pgno) {
     else {
         game_1.style.display = "none";
     }
+}
+
+// Function to apply the slide effect when transitioning between pages
+function slideContent(pgno) {
+
+    // get the content to slide
+    let pageContent = document.querySelector('#subtopic' + pgno + "-content");
+
+    // apply the class
+    pageContent.classList.add("pageSlideIn");
+
 }
 
 //open and close nav menu when viewport width < 800px

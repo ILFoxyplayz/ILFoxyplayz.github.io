@@ -6,17 +6,15 @@
     font-style: normal;
 }
 
-@keyframes slideIn {
+@keyframes pageSlideInAnim {
     0% {
-        transform: translateX(0%);
-    }
-
-    50% {
-        transform: translateX(50%);
+        opacity: 0;
+        transform: translateY(100%);
     }
 
     100% {
-        transform: translateX(100%);
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -188,7 +186,14 @@ div#menu nav a:hover {
     flex: 100%;
     background-image: linear-gradient(to right, #1E4936, #275F47, #1E4936);
     color: white;
-    padding: 100px;
+    padding: 50px;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+/* === Page Content === */
+.pageSlideIn {
+    animation: pageSlideInAnim 1s;
 }
 
 /* === Cards === */
@@ -260,6 +265,12 @@ footer {
     padding: 100px;
 }
 
+/* === QR Code === */
+#qrCode {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
 /* === Guessing Game === */
 #guessing-game {
     position: relative;
@@ -300,6 +311,11 @@ footer {
 
 /* ===== INDIVIDUAL STUFF ===== */
 
+#subtopic3 iframe {
+    height: 600px;
+    width: 100%;
+}
+
 #card-1,
 #card-2,
 #card-3 {
@@ -318,6 +334,7 @@ footer {
 }
 
 /* Practical stuff */
+/*
 #practical {
     flex: 1;
     padding: 50px;
@@ -334,6 +351,7 @@ footer {
     justify-content: center;
     align-items: center;
 }
+*/
 
 #hamIcon {
     display: none;
@@ -341,9 +359,16 @@ footer {
 
 @media screen and (max-width:800px) {
 
-    nav {
-        flex-direction: column;
-        align-items: flex-end;
+    header h1 {
+        flex: 1;
+        margin-left: 100px;
+        text-align: center;
+    }
+
+    header nav {
+        flex: 2;
+        margin-right: 100px;
+        justify-content: right;
     }
 
     /*make a menu items vertical*/
@@ -360,6 +385,8 @@ footer {
     #qrCodeImg {
         display: none;
     }
+
+
 }
 
 /*to unhide menu items*/
