@@ -9,7 +9,7 @@
 @keyframes pageSlideInAnim {
     0% {
         opacity: 0;
-        transform: translateY(100%);
+        transform: translateY(50%);
     }
 
     100% {
@@ -155,7 +155,7 @@ div#menu nav a {
     z-index: 1;
 
     /*Size*/
-    width: 10%;
+    min-width: 10%;
 
     /*Styling*/
     border: 3px solid darkgrey;
@@ -333,26 +333,6 @@ footer {
     flex: 4
 }
 
-/* Practical stuff */
-/*
-#practical {
-    flex: 1;
-    padding: 50px;
-    background: darkslategray;
-}
-
-#ball {
-    background: cyan;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-*/
-
 #hamIcon {
     display: none;
 }
@@ -385,8 +365,6 @@ footer {
     #qrCodeImg {
         display: none;
     }
-
-
 }
 
 /*to unhide menu items*/
