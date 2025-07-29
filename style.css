@@ -42,6 +42,10 @@ body {
 
 /* === Header === */
 header {
+    /*Flex display*/
+    display: flex;
+    flex-wrap: wrap;
+
     /*Position*/
     position: fixed;
     top: 0;
@@ -90,6 +94,11 @@ header nav a:hover {
     color: lightgrey;
 }
 
+/* === Hamburger Menu in header === */
+#menuItems.menuShow {
+    display: block;
+}
+
 /* === Main === */
 main {
     background: white;
@@ -98,7 +107,7 @@ main {
 }
 
 /* === Menu === */
-div#menu {
+#menu {
     /*Flex stuff*/
     flex: 100%;
 
@@ -119,12 +128,12 @@ div#menu {
     align-items: center;
 }
 
-div#menu section {
+#menu section {
     justify-content: center;
     align-items: center;
 }
 
-div#menu img {
+#menu img {
     /*Position*/
     position: absolute;
     top: 0;
@@ -139,18 +148,18 @@ div#menu img {
     opacity: 0.3;
 }
 
-div#menu h2 {
+#menu h2 {
     text-align: center;
     font-size: 100px;
     flex: 100%;
 }
 
-div#menu nav {
+#menu nav {
     flex: 100%;
     justify-content: space-evenly;
 }
 
-div#menu nav a {
+#menu nav a {
     /*Position*/
     z-index: 1;
 
@@ -169,7 +178,7 @@ div#menu nav a {
     color: white;
 }
 
-div#menu nav a:hover {
+#menu nav a:hover {
     transition: all 0.2s;
     background-color: white;
     color: black;
@@ -198,7 +207,6 @@ div#menu nav a:hover {
 
 /* === Cards === */
 .card {
-    position: relative;
     box-shadow: 5px 5px 5px hsl(0, 0%, 12%);
 
     min-height: 200px;
@@ -212,6 +220,7 @@ div#menu nav a:hover {
 }
 
 .card .card-content {
+    /*Specify absolute position, makes the div's transform origin to top left. */
     position: absolute;
     top: 0;
     left: 0;
@@ -339,26 +348,43 @@ footer {
 
 @media screen and (max-width:800px) {
 
+    /* menu changes */
+    #menu nav a {
+        flex: 100%;
+        margin-left: 150px;
+        margin-right: 150px;
+        max-width: 150px;
+    }
+
+    /* header changes */
     header h1 {
         flex: 1;
-        margin-left: 100px;
-        text-align: center;
+        margin-left: 50px;
     }
 
     header nav {
         flex: 2;
-        margin-right: 100px;
-        justify-content: right;
+        margin-right: 50px;
     }
 
-    /*make a menu items vertical*/
-    nav div a {
-        display: block;
+    header #menuItems {
+        display: none;
     }
 
     /* unhide menu icon */
     #hamIcon {
         display: block;
+    }
+
+    /* page changes */
+    .page {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    /*Video in subtopic 3*/
+    #subtopic3 iframe {
+        height: auto;
     }
 
     /*hide the menu item list*/

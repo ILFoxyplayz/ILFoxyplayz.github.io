@@ -117,7 +117,7 @@ function hideall() {
     for (let onegame of allgames) { //go through all games
         onegame.style.display = "none";
     }
-    for (let onepageContent of allpageContent) {
+    for (let onepageContent of allpageContent) { //restart all sliding animations
         onepageContent.classList.remove("pageSlideIn");
     }
     footer.style.display = "none"; //remove footer
@@ -354,6 +354,7 @@ menu.addEventListener("click", function (e) {
 game_1.addEventListener("click", function (e) {
     let button = e.target.id;
 
+    //
     switch (button) {
         case "guessing-game-startButton":
             startGuessingGame();
