@@ -16,6 +16,7 @@ const card_3 = document.querySelector("#card-3");
 const game_1 = document.querySelector("#guessing-game");
 const game_1_StartMenu = document.querySelector("#guessing-game .startUI");
 const game_1_GameMenu = document.querySelector("#guessing-game .gameUI");
+const game_1_CheckButton = document.querySelector("#guessing-game-checkButton");
 
 // guessing game audio
 const correctAudio = new Audio("audio/correct.mp3");
@@ -156,19 +157,13 @@ function slideContent(pgno) {
 
     // apply the class
     pageContent.classList.add("pageSlideIn");
-
 }
 
 //open and close nav menu when viewport width < 800px
 function toggleMenus() {
     //if menuItemsList dont have the class "menuShow", add it, else remove it
     menuItemsList.classList.toggle("menuShow");
-    //if menu is showing (has the class “menuShow”)
-    if (menuItemsList.classList.contains("menuShow")) {
-        hamBtn.innerHTML = "Close Menu"; //change button text to chose menu
-    } else { //if menu NOT showing
-        hamBtn.innerHTML = "Menu"; //change button text open menu
-    }
+    hamBtn.classList.toggle("spriteOpen");
 }
 
 //opening and closing header logic
@@ -230,7 +225,25 @@ function setUpQuestion() {
         inputElement.checked = false;
     }
 
+    // reset the check button and the options
+    resetQuestions();
+
     currentQuestionIndex = questionIndex;
+}
+
+// Function to reset display of buttons and questions
+function resetQuestions() {
+
+    // reset the check button
+    game_1_CheckButton.classList.remove("continue");
+    game_1_CheckButton.innerHTML = "Select!";
+
+    // reset the options
+    for (let i = 0; i < 4; i++) {
+        let optionElement = document.querySelector("#label" + (i + 1));
+        optionElement.style.color = "white";
+        optionElement.style.opacity = "1";
+    }
 }
 
 // Function to randomise questions
@@ -251,10 +264,13 @@ function randomiseQuestion() {
     return index;
 }
 
+// function to check asnwer upon button press
 function checkAnswer() {
 
     let value = document.querySelector("input[name='mcq']:checked").value;
-    if (value == questions[currentQuestionIndex].answer) {
+    let correctValue = questions[currentQuestionIndex].answer;
+
+    if (value == correctValue) {
         game_1_score++;
         correctAudio.play();
     }
@@ -262,8 +278,31 @@ function checkAnswer() {
         wrongAudio.play();
     }
 
-    // Set new question
-    setUpQuestion();
+    // display correct answers
+    displayAnswers(correctValue);
+}
+
+// function to display answers upon the button press
+function displayAnswers(correctAnswer) {
+
+    // check through each element and highlight the correct one
+    for (let i = 0; i < 4; i++) {
+
+        // get each option elements
+        let inputElement = document.querySelector("#option" + (i + 1));
+        let optionElement = document.querySelector("#label" + (i + 1));
+
+        if (inputElement.value == correctAnswer) {
+            optionElement.style.color = "lightgreen";
+        }
+        else {
+            optionElement.style.opacity = "0.5";
+        }
+    }
+
+    // change the select button to next button to signal for when to move on to the next question
+    game_1_CheckButton.classList.add("continue");
+    game_1_CheckButton.innerHTML = "Continue";
 }
 
 // Function to end guessing game
@@ -354,14 +393,20 @@ menu.addEventListener("click", function (e) {
 game_1.addEventListener("click", function (e) {
     let button = e.target.id;
 
-    //
     switch (button) {
         case "guessing-game-startButton":
             startGuessingGame();
             break;
 
         case "guessing-game-checkButton":
-            checkAnswer();
+            if (e.target.classList.contains("continue")) {
+                // set up next question when continue in classlist
+                setUpQuestion();
+            }
+            else {
+                // check answer when selecting option on a question
+                checkAnswer();
+            }
             break;
     }
 });
