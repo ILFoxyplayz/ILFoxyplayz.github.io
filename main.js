@@ -8,6 +8,7 @@ const pageContent_4 = document.querySelector("#subtopic4-content");
 const pageContent_5 = document.querySelector("#subtopic5-content");
 
 // cards 
+const card_container1 = document.querySelector("#subtopic2 .card-container");
 const card_1 = document.querySelector("#card-1");
 const card_2 = document.querySelector("#card-2");
 const card_3 = document.querySelector("#card-3");
@@ -17,6 +18,11 @@ const game_1 = document.querySelector("#guessing-game");
 const game_1_StartMenu = document.querySelector("#guessing-game .startUI");
 const game_1_GameMenu = document.querySelector("#guessing-game .gameUI");
 const game_1_CheckButton = document.querySelector("#guessing-game-checkButton");
+
+// mini-game 
+const game_2 = document.querySelector("#mini-game");
+const game_2_StartMenu = document.querySelector("#mini-game .startUI");
+const game_2_GameMenu = document.querySelector("#mini-game .gameUI");
 
 // guessing game audio
 const correctAudio = new Audio("audio/correct.mp3");
@@ -94,6 +100,25 @@ var questions = [
     }
 ];
 
+// === mini game logic variables ===
+let backgroundMinHeight = 0;
+let backgroundMaxHeight = 300;
+let isMiniGameStart = false;
+let playerPos = 0;
+let playerMoveSpeed = 10;
+let dirtMoveSpeed = 2;
+let dirtSpawnDist = 550;
+let game_2_lives = 3;
+let game_2_score = 0;
+let playedBefore = false;
+let activeIntervals = [];
+let activeDivs = [];
+
+// timed events var
+let playerUpdateInterval = null;
+let dirtSpawnInterval = null;
+let displayUpdateInterval = null;
+
 // structure
 const header = document.querySelector("#header");
 const footer = document.querySelector("#footer");
@@ -147,6 +172,10 @@ function show(pgno) {
     else {
         game_1.style.display = "none";
     }
+
+    // show mini game on every page 
+    game_2.style.display = "block";
+    endMiniGame();
 }
 
 // Function to apply the slide effect when transitioning between pages
@@ -327,15 +356,180 @@ function endGuessingGame() {
     usedQuestionIndex = [];
 }
 
+// function to start minigame
+function startMiniGame() {
+    game_2_StartMenu.style.opacity = "0";
+    game_2_StartMenu.style.zIndex = "-1";
+
+    game_2_GameMenu.style.opacity = "1";
+    game_2_GameMenu.style.zIndex = "1";
+
+    // reset game vars
+    game_2_lives = 3;
+    game_2_score = 0;
+
+    // display game vars
+    displayUpdateInterval = setInterval(updateDisplay, 200);
+
+    // start game
+    isMiniGameStart = true;
+    if (!playedBefore) playedBefore = true
+    setMiniGame();
+}
+
+// function to set the timed events
+function setMiniGame() {
+    let player = document.querySelector("#player");
+
+    // Update moving function for player
+    playerUpdateInterval = setInterval(function () {
+        playerPos = Math.max(backgroundMinHeight, Math.min(playerPos, backgroundMaxHeight - 70));
+        player.style.top = playerPos + "px";
+    }, 10);
+    // Set time delay for spawning of dirt
+    setTimeout(spawnDirt, 5000);
+}
+
+// function to create the dirt stuff
+function spawnDirt() {
+    dirtSpawnInterval = setInterval(function () {
+
+        // container for the dirt div
+        let dirt = null;
+
+        // randomise index for different types of dirt
+        let index = GetRandom(0, 1);
+
+        // spawn dirt type
+        switch (index) {
+            case 0:
+                dirt = createDirt("dirt");
+                break;
+            case 1:
+                dirt = createDirt("bigDirt");
+                break;
+        }
+
+        // update movement for each type of dirt
+        let dirtPos = dirtSpawnDist;
+
+        let moveInterval = setInterval(function () {
+            dirtPos -= dirtMoveSpeed;
+            dirt.style.left = dirtPos + "px";
+
+            // check if this dirt div reaches threshold
+            if (dirtPos < -50) {
+                game_2_lives--;
+                destroyDirt(dirt, moveInterval);
+            }
+
+        }, 10);
+
+        // push into array to delete when player dies/leaves current page
+        activeIntervals.push(moveInterval);
+        activeDivs.push(dirt);
+
+    }, 3000);
+}
+
+function GetRandom(min, max) {
+    //this will select a number between min and max
+    return Math.round(Math.random() * (max - min)) + min;
+}
+
+function createDirt(dirtType) {
+    let background = document.querySelector("#background");
+
+    // create dirt div
+    let dirtDiv = document.createElement("div");
+
+    // set id of dirt
+    dirtDiv.classList.add(dirtType);
+
+    // constrain spawn width
+    let minSpawn = backgroundMinHeight;
+    let maxSpawn = backgroundMaxHeight;
+
+    if (dirtType === "dirt") {
+        minSpawn += 30;
+        maxSpawn -= 30;
+    }
+    else if (dirtType === "bigDirt") {
+        minSpawn += 60;
+        maxSpawn -= 60;
+    }
+
+    console.log(minSpawn, maxSpawn);
+    // randomise y pos of dirt
+    dirtDiv.style.top = GetRandom(minSpawn, maxSpawn) + "px";
+
+    // set it into background
+    background.appendChild(dirtDiv);
+
+    return dirtDiv;
+}
+
+function destroyDirt(dirtDiv, interval) {
+    dirtDiv.remove();
+    clearInterval(interval);
+}
+
+// function to move the player
+function MovePlayer(moveDir) {
+    playerPos -= moveDir * playerMoveSpeed;
+}
+
+function updateDisplay() {
+    let scoreDisplay = document.querySelector("#game-score");
+    scoreDisplay.innerHTML = `Score: ${game_2_score}`;
+    let livesDisplay = document.querySelector("#game-lives");
+    livesDisplay.innerHTML = `Lives: ${game_2_lives}`;
+
+    if (game_2_lives <= 0) endMiniGame();
+} 
+
+// function to destroy the timed events
+function destroyMiniGame() {
+
+    // clear out any active timed events
+    activeIntervals.forEach(clearInterval);
+    activeIntervals = [];
+
+    // clear out any divs
+    activeDivs.forEach(deleteDiv);
+    activeDivs = [];
+
+    clearInterval(playerUpdateInterval);
+    clearInterval(dirtSpawnInterval);
+    clearInterval(displayUpdateInterval);
+}
+
+function deleteDiv(div) {
+    div.remove();
+}
+
+// function to end minigame
+function endMiniGame() {
+    game_2_StartMenu.style.opacity = "1";
+    game_2_StartMenu.style.zIndex = "1";
+
+    game_2_GameMenu.style.opacity = "0";
+    game_2_GameMenu.style.zIndex = "-1";
+
+    // display final score
+    let gameMessage = document.querySelector("#mini-game-message");
+    if (playedBefore) gameMessage.innerHTML = `Score: ${game_2_score}`;
+
+    // destroy any intervals
+    destroyMiniGame();
+    isMiniGameStart = false;
+}
+
 // ===== INIT FUNCTION WHEN RUNNING THE WEBSITE AT THE START ===== 
 function Init() {
 
     // Initial Set up
     hideall();
-    toggleHeader();
-
-    // Ongoing functions
-
 }
 Init();
 
@@ -411,6 +605,24 @@ game_1.addEventListener("click", function (e) {
     }
 });
 
+game_2.addEventListener("click", function (e) {
+    let button = e.target.id;
+
+    switch (button) {
+        case "mini-game-startButton":
+            startMiniGame();
+            break;
+
+        case "mini-game-upInput":
+            MovePlayer(1);
+            break;
+
+        case "mini-game-downInput":
+            MovePlayer(-1);
+            break;
+    }
+})
+
 card_1.addEventListener("click", function () {
     showCard(1);
 });
@@ -419,4 +631,16 @@ card_2.addEventListener("click", function () {
 });
 card_3.addEventListener("click", function () {
     showCard(3);
+});
+
+document.addEventListener('keydown', function (kbEvt) {
+    //kbEvt: an event object passed to callback function
+    console.log(kbEvt); //see what is returned
+    if (kbEvt.code === "KeyS") {
+        MovePlayer(-1);
+    }
+    if (kbEvt.code === "KeyW") {
+        MovePlayer(1);
+    }
+    //Better option: use switch case instead
 });

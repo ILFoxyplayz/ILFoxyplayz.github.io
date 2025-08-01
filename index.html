@@ -282,29 +282,53 @@
     <footer id="footer">
         <h2>Footer</h2>
 
-        <section id="guessing-game" class="game">
-            <div class="startUI">
-                <h3>Vacuum Quiz</h3>
-                <p id="guessing-game-message">Test your knowledge of vacuum cleaners!</p>
-                <button id="guessing-game-startButton">Start</button>
-            </div>
-            <div class="gameUI">
-                <p id="question">Question</p>
-                <div id="guessing-game-content" class="flex">
-                    <div id="question-options">
-                        <input id="option1" name="mcq" type="radio" value="1"><label for="option1"
-                            id="label1">Option1</label><br>
-                        <input id="option2" name="mcq" type="radio" value="2"><label for="option2"
-                            id="label2">Option2</label><br>
-                        <input id="option3" name="mcq" type="radio" value="3"><label for="option3"
-                            id="label3">Option3</label><br>
-                        <input id="option4" name="mcq" type="radio" value="4"><label for="option4"
-                            id="label4">Option4</label><br>
-                    </div>
-                    <button id="guessing-game-checkButton">Select!</button>
+        <div id="game-section">
+            <section id="guessing-game" class="game">
+                <div class="startUI">
+                    <h3>Vacuum Quiz</h3>
+                    <p id="guessing-game-message">Test your knowledge of vacuum cleaners!</p>
+                    <button id="guessing-game-startButton">Start</button>
                 </div>
-            </div>
-        </section>
+                <div class="gameUI">
+                    <p id="question">Question</p>
+                    <div id="guessing-game-content" class="flex">
+                        <div id="question-options">
+                            <input id="option1" name="mcq" type="radio" value="1"><label for="option1"
+                                id="label1">Option1</label><br>
+                            <input id="option2" name="mcq" type="radio" value="2"><label for="option2"
+                                id="label2">Option2</label><br>
+                            <input id="option3" name="mcq" type="radio" value="3"><label for="option3"
+                                id="label3">Option3</label><br>
+                            <input id="option4" name="mcq" type="radio" value="4"><label for="option4"
+                                id="label4">Option4</label><br>
+                        </div>
+                        <button id="guessing-game-checkButton">Select!</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="mini-game" class="game">
+                <div class="startUI">
+                    <h3>Vacuum Mini-game</h3>
+                    <p id="mini-game-message">Little, fun mini-game with vacuum cleaner themes</p>
+                    <button id="mini-game-startButton">Start</button>
+                </div>
+                <div class="gameUI">
+                    <div id="game-topBar">
+                        <div id="game-score">Score: </div>
+                        <div id="game-lives">Lives: </div>
+                    </div>
+                    <div id="game-screen">
+                        <div id="background">
+                            <div id="player">
+                            </div>
+                        </div>
+                    </div>
+                    <button id="mini-game-upInput">Move Up</button>
+                    <button id="mini-game-downInput">Move Down</button>
+                </div>
+            </section>
+        </div>
 
         <div id="qrCode">
             <img id="qrCodeImg" title="QR code to mobile website" alt="QR Code" src="images/qrcodeimg.png">

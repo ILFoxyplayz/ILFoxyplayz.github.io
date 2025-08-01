@@ -81,10 +81,12 @@ header nav {
     flex: 3;
     margin-right: 100px;
     justify-content: right;
+    align-items: center;
 }
 
 header nav a {
     padding: 20px;
+    justify-content: center;
     text-decoration: none;
     color: white;
 }
@@ -224,7 +226,6 @@ main {
 }
 
 .card .card-content {
-    /*Specify absolute position, makes the div's transform origin to top left. */
     position: absolute;
     top: 0;
     left: 0;
@@ -284,12 +285,19 @@ footer {
     padding-bottom: 50px;
 }
 
-/* === Guessing Game === */
-#guessing-game {
-    position: relative;
+#game-section {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 30px;
+}
+
+/* === All Games === */
+.game {
     background: darkslategray;
     border-radius: 30px;
     text-align: center;
+    position: relative;
 }
 
 .startUI,
@@ -299,18 +307,26 @@ footer {
 
 .startUI {
     padding: 30px;
-    opacity: 1;
-}
 
-.gameUI {
-    padding: 30px;
+    /* Force position of startUI to be over the game's using absolute position to manully set it*/
     position: absolute;
     top: 0;
     left: 0;
+
     z-index: -1;
     width: 100%;
     height: 100%;
     opacity: 0;
+}
+
+.gameUI {
+    padding: 30px;
+    opacity: 1;
+}
+
+/* === Guessing Game === */
+#guessing-game {
+    flex: 100%;
 }
 
 #question-options {
@@ -320,6 +336,71 @@ footer {
 
 #guessing-game-checkButton {
     flex: 1;
+}
+
+/* === Mini Game === */
+#mini-game {
+    flex: 100%;
+}
+
+#game-screen {
+    display: flex;
+    flex-wrap: nowrap;
+
+    justify-content: center;
+}
+
+#game-topBar {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#game-score {
+    flex: 50%;
+}
+
+#game-lives {
+    flex: 50%;
+}
+
+#background {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    max-width: 550px;
+    height: 300px;
+    flex: 100%;
+}
+
+#player {
+    position: relative;
+    background-color: red;
+    border: solid 1px black;
+    width: 10px;
+    height: 70px;
+}
+
+#mini-game-upInput,
+#mini-game-downInput {
+    display: none;
+}
+
+.dirt,
+.bigDirt {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: brown;
+
+    top: 0;
+    left: 100%;
+}
+
+.bigDirt {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
 }
 
 /* ===== INDIVIDUAL STUFF ===== */
@@ -332,6 +413,7 @@ footer {
 #card-1,
 #card-2,
 #card-3 {
+    position: relative;
     flex: 30%;
 }
 
@@ -409,10 +491,16 @@ footer {
         height: auto;
     }
 
-    /* guessing game */
-    .gameUI {
-        overflow-y: scroll;
+    /*Mini game size*/
+    #background {
+        width: 100%;
     }
+
+    #mini-game-upInput,
+    #mini-game-downInput {
+        display: block;
+    }
+
 
     /*hide the menu item list*/
     #qrCodeImg {
