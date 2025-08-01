@@ -134,6 +134,7 @@ main {
 }
 
 #menu section {
+    gap: 20px;
     justify-content: center;
     align-items: center;
 }
@@ -188,6 +189,22 @@ main {
     background-color: white;
     color: black;
     border-color: white;
+}
+
+/* fullscreen btns */
+#fullscreen-btns {
+    flex: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#btnFS, #btnWS{
+    color: white;
+    z-index: 1;
+    border-radius: 15px;
+    background-color: transparent;
 }
 
 /* === Sections ===*/

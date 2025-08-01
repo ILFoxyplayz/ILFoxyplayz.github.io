@@ -569,6 +569,40 @@ function endMiniGame() {
     isMiniGameStart = false;
 }
 
+function enterFullscreen() { //must be called by user generated event
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+        document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+        document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+        document.documentElement.msRequestFullscreen();
+    }
+
+    // remove fullscreen button
+    let button = document.querySelector("#btnFS");
+    button.id = "btnWS";
+    button.innerHTML = "Exit FullScreen";
+}
+
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) { // Firefox
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) { // Chrome, Safari, and Opera
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { // IE/Edge
+        document.msExitFullscreen();
+    }
+
+    // remove fullscreen button
+    let button = document.querySelector("#btnWS");
+    button.id = "btnFS";
+    button.innerHTML = "FullScreen";
+}
+
 // ===== INIT FUNCTION WHEN RUNNING THE WEBSITE AT THE START ===== 
 function Init() {
 
@@ -624,6 +658,12 @@ menu.addEventListener("click", function (e) {
         case "menu_page5btn":
             show(5);
             break;
+        case "btnFS":
+            enterFullscreen();
+            break;
+        case "btnWS":
+            exitFullscreen();
+            break
     }
 })
 
