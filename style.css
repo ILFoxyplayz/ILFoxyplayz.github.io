@@ -431,6 +431,10 @@ footer {
 @media screen and (max-width:800px) {
 
     /* menu changes */
+    #menu h2 {
+        font-size: 50px;
+    }
+
     #menu nav a {
         flex: 100%;
         margin-left: 150px;
