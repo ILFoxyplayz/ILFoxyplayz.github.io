@@ -510,4 +510,8 @@ footer {
     #qrCodeImg {
         display: none;
     }
+
+    footer {
+        padding: 20px; 
+    }
 }
