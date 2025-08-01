@@ -108,6 +108,8 @@ let playerPos = 0;
 let playerMoveSpeed = 10;
 let dirtMoveSpeed = 2;
 let dirtSpawnDist = 550;
+let platformHeight = 70;
+let platformWidth = 10;
 let game_2_lives = 3;
 let game_2_score = 0;
 let playedBefore = false;
@@ -118,6 +120,7 @@ let activeDivs = [];
 let playerUpdateInterval = null;
 let dirtSpawnInterval = null;
 let displayUpdateInterval = null;
+let collisionUpdateInterval = null;
 
 // structure
 const header = document.querySelector("#header");
@@ -396,6 +399,7 @@ function spawnDirt() {
 
         // container for the dirt div
         let dirt = null;
+        let dirtType = null;
 
         // randomise index for different types of dirt
         let index = GetRandom(0, 1);
@@ -403,12 +407,14 @@ function spawnDirt() {
         // spawn dirt type
         switch (index) {
             case 0:
-                dirt = createDirt("dirt");
+                dirtType = "dirt";
                 break;
             case 1:
-                dirt = createDirt("bigDirt");
+                dirtType = "bigDirt";
                 break;
         }
+
+        dirt = createDirt(dirtType);
 
         // update movement for each type of dirt
         let dirtPos = dirtSpawnDist;
@@ -416,6 +422,7 @@ function spawnDirt() {
         let moveInterval = setInterval(function () {
             dirtPos -= dirtMoveSpeed;
             dirt.style.left = dirtPos + "px";
+            updateCollision(dirt, dirtType, moveInterval);
 
             // check if this dirt div reaches threshold
             if (dirtPos < -50) {
@@ -459,7 +466,6 @@ function createDirt(dirtType) {
         maxSpawn -= 60;
     }
 
-    console.log(minSpawn, maxSpawn);
     // randomise y pos of dirt
     dirtDiv.style.top = GetRandom(minSpawn, maxSpawn) + "px";
 
@@ -479,14 +485,52 @@ function MovePlayer(moveDir) {
     playerPos -= moveDir * playerMoveSpeed;
 }
 
+// function to update display for score and lives
 function updateDisplay() {
     let scoreDisplay = document.querySelector("#game-score");
     scoreDisplay.innerHTML = `Score: ${game_2_score}`;
     let livesDisplay = document.querySelector("#game-lives");
     livesDisplay.innerHTML = `Lives: ${game_2_lives}`;
 
+    // check if lives <= 0. End game if it is
     if (game_2_lives <= 0) endMiniGame();
-} 
+}
+
+// function for collision between platform and circle;
+function updateCollision(dirtDiv, dirtType, dirtInterval) {
+    // player's boundaries
+    let minLeft = 0;
+    let maxLeft = 0 + 10;
+    let minTop = playerPos;
+    let maxTop = playerPos + 70;
+
+    console.log(minLeft, maxLeft, minTop, maxTop);
+
+    let radius = 0;
+    // dirt circle's boundaries
+    if (dirtType === "dirt") {
+        radius = 15;
+    }
+    else if (dirtType === "bigDirt") {
+        radius = 30;
+    }
+    let circleLeft = parseFloat(dirtDiv.style.left) + radius;
+    let circleTop = parseFloat(dirtDiv.style.top) + radius;
+
+    console.log(radius, circleLeft, circleTop);
+
+    // check boundaries
+    // horizontal collsion check
+    let horizontalCollision = ((circleLeft - radius) <= maxLeft) && ((circleLeft + radius) >= minLeft);
+    // vertical collision check
+    let verticalCollision = ((circleTop - radius) <= maxTop) && ((circleTop + radius) >= minTop);
+
+    // collision resolution
+    if (horizontalCollision && verticalCollision) {
+        game_2_score++;
+        destroyDirt(dirtDiv, dirtInterval);
+    }
+}
 
 // function to destroy the timed events
 function destroyMiniGame() {
