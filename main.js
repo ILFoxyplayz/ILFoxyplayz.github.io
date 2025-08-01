@@ -100,6 +100,10 @@ var questions = [
     }
 ];
 
+// === mini game audio files ===
+const missedAudio = new Audio("audio/missed.mp3");
+const suckInAudio = new Audio("audio/suckIn.mp3");
+
 // === mini game logic variables ===
 let backgroundMinHeight = 0;
 let backgroundMaxHeight = 300;
@@ -428,6 +432,7 @@ function spawnDirt() {
             if (dirtPos < -50) {
                 game_2_lives--;
                 destroyDirt(dirt, moveInterval);
+                missedAudio.play();
             }
 
         }, 10);
@@ -529,6 +534,7 @@ function updateCollision(dirtDiv, dirtType, dirtInterval) {
     if (horizontalCollision && verticalCollision) {
         game_2_score++;
         destroyDirt(dirtDiv, dirtInterval);
+        suckInAudio.play();
     }
 }
 
