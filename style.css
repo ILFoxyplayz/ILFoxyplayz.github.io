@@ -296,6 +296,20 @@ footer {
     padding: 100px;
 }
 
+#return-to-top {
+    transition: all 0.2s;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    border: 3px solid grey;
+    border-radius: 10px;
+}
+
+#return-to-top:hover {
+    color: grey;
+    border: 0;
+}
+
 /* === QR Code === */
 #qrCode {
     padding-top: 50px;
