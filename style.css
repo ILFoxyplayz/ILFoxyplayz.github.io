@@ -6,6 +6,7 @@
     font-style: normal;
 }
 
+/* animation for page sliding in*/
 @keyframes pageSlideInAnim {
     0% {
         opacity: 0;
@@ -47,6 +48,7 @@ header {
     flex-wrap: wrap;
 
     /*Position*/
+    /*Positions relative to viewport, allowing header to follow when scrolling*/
     position: fixed;
     top: 0;
     left: 0;
@@ -64,6 +66,7 @@ header {
 }
 
 header.headerHide {
+    /*Move header up when outside menu portion*/
     transform: translateY(-100%);
 }
 
@@ -141,6 +144,8 @@ main {
 
 #menu img {
     /*Position*/
+    /*Forces image position to be relative to nearest position ancestor, 
+    in this case the entire viewport, at top 0, left 0*/
     position: absolute;
     top: 0;
     left: 0;
@@ -200,7 +205,8 @@ main {
     align-items: center;
 }
 
-#btnFS, #btnWS{
+#btnFS,
+#btnWS {
     color: white;
     z-index: 1;
     border-radius: 15px;
@@ -230,6 +236,8 @@ main {
 
 /* === Cards === */
 .card {
+    /*Applys position properties to itself, for use of card-content*/
+    position: relative;
     box-shadow: 5px 5px 5px hsl(0, 0%, 12%);
 
     min-height: 200px;
@@ -243,9 +251,13 @@ main {
 }
 
 .card .card-content {
+    /*Positions card-content relative to closest positioned parent, 
+    in this case the .card class parent, at the parent's origin.
+    Allows overlapping positions with the card and its content*/
     position: absolute;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
     padding: 20px;
@@ -339,7 +351,9 @@ footer {
 .startUI {
     padding: 30px;
 
-    /* Force position of startUI to be over the game's using absolute position to manully set it*/
+    /*Positions relative to closest position ancestor, 
+    in this case the .game class which holds each game.
+    Allows it to overlap the gameUI*/
     position: absolute;
     top: 0;
     left: 0;
@@ -395,6 +409,8 @@ footer {
 }
 
 #background {
+    /*Applies position properties to itself 
+    for dynamically created dirt divs*/
     position: relative;
     overflow: hidden;
     background-color: white;
@@ -418,6 +434,8 @@ footer {
 
 .dirt,
 .bigDirt {
+    /*Allows dirt divs to be removed from the normal document flow, 
+    allowing dirt divs to properly spawn, its spawn top position overlapping the player's top position*/
     position: absolute;
     width: 30px;
     height: 30px;
@@ -444,7 +462,6 @@ footer {
 #card-1,
 #card-2,
 #card-3 {
-    position: relative;
     flex: 30%;
 }
 
@@ -543,6 +560,6 @@ footer {
     }
 
     footer {
-        padding: 20px; 
+        padding: 20px;
     }
 }
