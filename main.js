@@ -140,6 +140,7 @@ var allpages = document.querySelectorAll(".page");
 var allpageContent = document.querySelectorAll(".page-content")
 var allcards = document.querySelectorAll(".card");
 var allgames = document.querySelectorAll(".game");
+var allsliders = document.querySelectorAll(".slider");
 
 // others
 const menuItemsList = document.querySelector("#menuItems")
@@ -158,6 +159,9 @@ function hideall() {
     }
     for (let onepageContent of allpageContent) { //restart all sliding animations
         onepageContent.classList.remove("pageSlideIn");
+    }
+    for (let oneslider of allsliders) {
+        oneslider.classList.remove("sliderShow");
     }
     footer.style.display = "none"; //remove footer
 
@@ -215,6 +219,21 @@ function toggleHeader() {
     }
     else {
         header.classList.remove("headerHide");
+    }
+}
+
+// toggling sliding anim for content
+function toggleSlider() {
+    for (let i = 0; i < 5; i++) {
+        let slider = document.querySelector("#slider-" + (i + 1));
+
+        // gets the size and position relative to viewport
+        let rect = slider.getBoundingClientRect();
+
+        // check slider's height against the height of the viewport
+        if (rect.top <= window.innerHeight) {
+            slider.classList.add("sliderShow");
+        }
     }
 }
 
@@ -626,6 +645,7 @@ Init();
 // ===== EVENT LISTENERS ===== 
 hamBtn.addEventListener("click", toggleMenus);
 addEventListener("scroll", toggleHeader);
+addEventListener("scroll", toggleSlider);
 
 // delegate page nav to header
 header.addEventListener("click", function (e) {
