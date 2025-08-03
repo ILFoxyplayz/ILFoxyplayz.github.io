@@ -12,6 +12,12 @@ const card_container1 = document.querySelector("#subtopic2 .card-container");
 const card_1 = document.querySelector("#card-1");
 const card_2 = document.querySelector("#card-2");
 const card_3 = document.querySelector("#card-3");
+const card_4 = document.querySelector("#card-4");
+const card_5 = document.querySelector("#card-5");
+const card_6 = document.querySelector("#card-6");
+const card_7 = document.querySelector("#card-7");
+const card_8 = document.querySelector("#card-8");
+const card_9 = document.querySelector("#card-9");
 
 // guessing game
 const game_1 = document.querySelector("#guessing-game");
@@ -721,6 +727,24 @@ card_2.addEventListener("click", function () {
 });
 card_3.addEventListener("click", function () {
     showCard(3);
+});
+card_4.addEventListener("click", function () {
+    showCard(4);
+});
+card_5.addEventListener("click", function () {
+    showCard(5);
+});
+card_6.addEventListener("click", function () {
+    showCard(6);
+});
+card_7.addEventListener("click", function () {
+    showCard(7);
+});
+card_8.addEventListener("click", function () {
+    showCard(8);
+});
+card_9.addEventListener("click", function () {
+    showCard(9);
 });
 
 document.addEventListener('keydown', function (kbEvt) {
