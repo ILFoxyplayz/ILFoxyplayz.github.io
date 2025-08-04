@@ -1,0 +1,16 @@
+
+{
+    "name": "Vacuum Cleaner PWA",
+    "short_name": "A2PWA",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#00FF00",
+    "icons": [
+        {
+            "src": "icons8-vacuum-48.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        }
+    ]
+}
