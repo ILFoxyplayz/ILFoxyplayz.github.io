@@ -1,14 +1,6 @@
 // === target all elements to save to constants ===
 
-// page contents
-const pageContent_1 = document.querySelector("#subtopic1-content");
-const pageContent_2 = document.querySelector("#subtopic2-content");
-const pageContent_3 = document.querySelector("#subtopic3-content");
-const pageContent_4 = document.querySelector("#subtopic4-content");
-const pageContent_5 = document.querySelector("#subtopic5-content");
-
 // cards 
-const card_container1 = document.querySelector("#subtopic2 .card-container");
 const card_1 = document.querySelector("#card-1");
 const card_2 = document.querySelector("#card-2");
 const card_3 = document.querySelector("#card-3");
@@ -118,8 +110,6 @@ let playerPos = 0;
 let playerMoveSpeed = 10;
 let dirtMoveSpeed = 2;
 let dirtSpawnDist = 550;
-let platformHeight = 70;
-let platformWidth = 10;
 let game_2_lives = 3;
 let game_2_score = 0;
 let playedBefore = false;
@@ -130,21 +120,20 @@ let activeDivs = [];
 let playerUpdateInterval = null;
 let dirtSpawnInterval = null;
 let displayUpdateInterval = null;
-let collisionUpdateInterval = null;
 
 // structure
 const header = document.querySelector("#header");
 const footer = document.querySelector("#footer");
 const menu = document.querySelector("#menu");
 var allpages = document.querySelectorAll(".page");
-var allpageContent = document.querySelectorAll(".page-content")
+var allPageContent = document.querySelectorAll(".page-content");
 var allcards = document.querySelectorAll(".card");
 var allgames = document.querySelectorAll(".game");
 var allsliders = document.querySelectorAll(".slider");
 
 // others
-const menuItemsList = document.querySelector("#menuItems")
-const hamBtn = document.querySelector("#hamIcon")
+const menuItemsList = document.querySelector("#menuItems");
+const hamBtn = document.querySelector("#hamIcon");
 
 // Function to hide all pages
 function hideall() {
@@ -157,7 +146,7 @@ function hideall() {
     for (let onegame of allgames) { //go through all games
         onegame.style.display = "none";
     }
-    for (let onepageContent of allpageContent) { //restart all sliding animations
+    for (let onepageContent of allPageContent) { //restart all sliding animations
         onepageContent.classList.remove("pageSlideIn");
     }
     for (let oneslider of allsliders) {
@@ -266,7 +255,7 @@ function setUpQuestion() {
     let gameQuestion = document.querySelector("#question");
 
     // randomise the next question
-    questionIndex = randomiseQuestion();
+    let questionIndex = randomiseQuestion();
     if (questionIndex === -1) {
         endGuessingGame();
         return; //end game if index less than 0;
@@ -405,7 +394,7 @@ function startMiniGame() {
 
     // start game
     isMiniGameStart = true;
-    if (!playedBefore) playedBefore = true
+    if (!playedBefore) playedBefore = true;
     setMiniGame();
 }
 
@@ -695,9 +684,9 @@ menu.addEventListener("click", function (e) {
             break;
         case "btnWS":
             exitFullscreen();
-            break
+            break;
     }
-})
+});
 
 // delegate quiz btns to guessing game section
 game_1.addEventListener("click", function (e) {
@@ -737,7 +726,7 @@ game_2.addEventListener("click", function (e) {
             MovePlayer(-1);
             break;
     }
-})
+});
 
 card_1.addEventListener("click", function () {
     showCard(1);
